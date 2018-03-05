@@ -6,16 +6,33 @@
 		<link type="text/css" rel="stylesheet" href="style.css" media="screen">
 	</head>
 	<body>
-		<form action="" method="post" enctype="multipart/form-data">
-			<fieldset>
-				<label for="game">Current Game</label>
+		<form>
+			<div>
+				<label>Current Game</label>
 				<input type="text" id="game" name="game" placeholder="Enter your current game.">
 				<br />
 				<label for="desc">Description</label>
 				<input type="text" id="desc" name="desc" placeholder="E.G Tower Control, Single Player">
 				<br />
-				<input type="submit" value="Let's Go!">
-			</fieldset>
+			</div>
+			<button type="submit">Let's Go!</button>
 		</form>
+
+	<script>
+		const electron = require('electron');
+		const {ipcRenderer} = electron;
+
+		const form = document.querySelector('form');
+		form.addEventListener('submit', submitForm);
+
+		function submitForm(e) {
+		    e.preventDefault();
+		    const game = document.querySelector('#game').value;
+            const desc = document.querySelector('#desc').value;
+            ipcRenderer.send('game:value', game);
+            ipcRenderer.send('desc:value', desc);
+		}
+	</script>
+
 	</body>
 </html>

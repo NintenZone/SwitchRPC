@@ -1,6 +1,5 @@
 .idea/
 node_modules/
+dist/
+assets/
 package.json
-package-lock.json
-Switch RPC.exe
-versions/
