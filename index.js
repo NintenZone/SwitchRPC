@@ -1,6 +1,6 @@
 //config
 let production = true;
-let version = 2;
+let version = 3;
 
 const rpc = require('discord-rich-presence')('387406899739623426');
 const request = require('request');
