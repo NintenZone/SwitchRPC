@@ -22,14 +22,9 @@ if (handleSquirrelEvent(app)) {
 //Listen For App to be Ready
 app.on('ready', function() {
     //create window
-    mainWindow = new BrowserWindow({});
+    mainWindow = new BrowserWindow({width: 600, height: 400, frame: false});
+    mainWindow.setMenu(null);
     //Load HTML
-    mainWindow.loadURL(url.format({
-        pathname: path.join(__dirname, 'loading.html'),
-        protocol: 'file:',
-        slashes: true
-    }));
-
     request('http://nintenbot.js.org/rpc.json', function(error, res, body) {
         wData = JSON.parse(body);
         if (version < wData.version && production === true) {
@@ -45,6 +40,9 @@ app.on('ready', function() {
                 protocol: 'file:',
                 slashes: true
             }));
+            mainWindow.once('ready-to-show', () => {
+                mainWindow.show();
+            })
         }
     });
 
@@ -59,6 +57,21 @@ app.on('ready', function() {
 
     Menu.setApplicationMenu(home);
 
+});
+
+ipcMain.on('x', function() {
+    app.quit()
+});
+
+ipcMain.on('max', function() {
+    if (!mainWindow) return;
+    if (mainWindow.isMaximized()) return mainWindow.unmaximize();
+    else mainWindow.maximize();
+});
+
+ipcMain.on('min', function() {
+    if (!mainWindow) return;
+    mainWindow.minimize();
 });
 
 let game;

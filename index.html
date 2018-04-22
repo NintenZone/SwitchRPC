@@ -1,38 +1,140 @@
-<!doctype html>
-<html>
-	<head>
-		<meta charset="utf-8">
-		<title>Nintendo Switch RPC</title>
-		<link type="text/css" rel="stylesheet" href="style.css" media="screen">
-	</head>
-	<body>
-		<form>
-			<div>
-				<label>Current Game</label>
-				<input type="text" id="game" name="game" placeholder="Enter your current game.">
-				<br />
-				<label for="desc">Description</label>
-				<input type="text" id="desc" name="desc" placeholder="E.G Tower Control, Single Player">
-				<br />
-			</div>
-			<button type="submit">Let's Go!</button>
-		</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Spambot</title>
+    <style>
+        .main {
+            position: fixed;
+			width: 85%;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+        }
 
-	<script>
-		const electron = require('electron');
-		const {ipcRenderer} = electron;
+        input[type=text], select {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
 
-		const form = document.querySelector('form');
-		form.addEventListener('submit', submitForm);
+        input[type=submit] {
+            width: 100%;
+            background-color: #FF1400;
+            color: black;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            font-size: 1.25em;
+			transition: background-color 0.2s;
+        }
 
-		function submitForm(e) {
-		    e.preventDefault();
-		    const game = document.querySelector('#game').value;
-            const desc = document.querySelector('#desc').value;
-            ipcRenderer.send('game:value', game);
-            ipcRenderer.send('desc:value', desc);
+        input[type=submit]:hover {
+            background-color: #CC1000;
+        }
+		
+        body {
+            font-family: Segoe, "Segoe UI", "DejaVu Sans", "Trebuchet MS", Verdana, "sans-serif";
+			justify-content: center;
+			display: flex;
+			flex-direction: column;
+			margin: 0;
+			padding: 0;
+        }
+		header {
+			-webkit-app-region: drag;
+			display: flex;
+			flex-direction: row-reverse;
+			justify-content: flex-start;
 		}
-	</script>
+		.item1 {
+			background: #202225;
+			transition: background 0.2s;
+			width: 20px;
+			height: 20px;
+			-webkit-app-region: no-drag;
+			cursor: pointer;
+		}
+		.item2 {
+			background: #202225;
+			transition: background 0.2s;
+			width: 20px;
+			height: 20px;
+			-webkit-app-region: no-drag;
+			cursor: pointer;
+		}
+		.item1:hover {
+			background: #3F3F3F;
+		}
+		.item2:hover {
+			background: red;
+		}
+		#top {
+			background-color: #202225;
+			height: 20px;
+			width: 100%;
+		}
+    </style>
+</head>
+	
+<body>
+	<div id="top">
+		<header>
+			<div class="item2" id="x"><img src="assets/x.png" alt="x" height="20" width="20"></div>
+			<div class="item1" id="max"><img src="assets/max.png" alt="max" height="20" width="20"></div>
+			<div class="item1" id="min"><img src="assets/min.png" alt="min" height="20" width="20"></div>
+		</header>
+	</div>
+<form>
+  <div class="main">
+    <label>Game</label>
+        <input type="text" id="game" name="game" placeholder="What game are you playing?">
+        <br />
+        <label>Description</label>
+    <input type="text" id="desc" name="desc" placeholder="What mode? (E.G Single Player, Online, etc.)">
+        <br />
+        <input type="submit">
+  </div>
+</form>
+<script>
+    const electron = require('electron');
+    const {ipcRenderer} = electron;
+	
+	const x = document.getElementById("x");
+	const max = document.getElementById("max");
+	const min = document.getElementById("min");
+	
+	x.addEventListener('click', sendX);
+	max.addEventListener('click', sendMax);
+	min.addEventListener('click', sendMin);
 
-	</body>
+    const form = document.querySelector('form');
+    form.addEventListener('submit', submitForm);
+	
+	function sendX(e) {
+		ipcRenderer.send('x');
+	}
+	
+	function sendMax(e) {
+		ipcRenderer.send('max');
+	}
+	
+	function sendMin(e) {
+		ipcRenderer.send('min');
+	}
+
+    function submitForm(e) {
+        e.preventDefault();
+        const game = document.querySelector('#game').value;
+        const desc = document.querySelector('#desc').value;
+        ipcRenderer.send('game:value', game);
+        ipcRenderer.send('desc:value', desc);
+    }
+</script>
+</body>
 </html>
