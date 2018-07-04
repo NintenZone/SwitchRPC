@@ -26,6 +26,13 @@ app.on('ready', function() {
     mainWindow.setMenu(null);
     //Load HTML
     request('http://nintenbot.js.org/rpc.json', function(error, res, body) {
+        if (error || !body) {
+            return mainWindow.loadURL(url.format({
+                pathname: path.join(__dirname, 'no-server.html'),
+                protocol: 'file:',
+                slashes: true
+            }));
+        }
         wData = JSON.parse(body);
         if (version < wData.version && production === true) {
             mainWindow.loadURL(url.format({
