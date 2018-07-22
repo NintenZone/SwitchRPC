@@ -8,7 +8,7 @@ If you're on windows, head over to the [releases](https://github.com/NintenZone/
 Mac and Linux installers coming soon™.
 
 ### Manual Installation
-4. Download and install [node.js](https://nodejs.org/en/). (Either version should work fine)
+1. Download and install [node.js](https://nodejs.org/en/). (Either version should work fine)
 2. Clone this repository:  
 `$ git clone https://github.com/NintenZone/SwitchRPC.git` or download the source code from the [latest release](https://github.com/NintenZone/SwitchRPC.git).
 6. CD into the directory  
