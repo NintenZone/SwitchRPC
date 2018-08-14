@@ -25,7 +25,7 @@ app.on('ready', function() {
     mainWindow = new BrowserWindow({width: 600, height: 400, frame: false});
     mainWindow.setMenu(null);
     //Load HTML
-    request('http://nintenbot.js.org/rpc.json', function(error, res, body) {
+    request('https://nintenbot.js.org/rpc.json', function(error, res, body) {
         wData = JSON.parse(body);
         if (version < wData.version && production === true) {
             mainWindow.loadURL(url.format({
