@@ -17,3 +17,5 @@ Mac and Linux installers coming soon™.
 `$ npm install`
 69. Run it!  
 `$ electron .`
+
+## Copyright 2018 NintenZone Technologies. Nintendo Switch, and the Nintendo Switch logos are property of Nintendo.
