@@ -1,0 +1,31 @@
+{
+  "name": "switchrpc",
+  "version": "2.0.0",
+  "description": "A Nintendo Switch Discord integration.",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron index.js",
+    "package": "",
+    "build": "electron-packager . SwitchRPC --overwrite --icon=assets/icons/icon.ico --out=dist/win"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NintenZone/SwitchRPC.git"
+  },
+  "author": "NintenGamer64",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/NintenZone/SwitchRPC/issues"
+  },
+  "homepage": "https://github.com/NintenZone/SwitchRPC#readme",
+  "dependencies": {
+    "discord-rich-presence": "0.0.6",
+    "electron-squirrel-startup": "^1.0.0"
+  },
+  "devDependencies": {
+    "asar": "^0.14.3",
+    "electron": "^1.8.4",
+    "electron-packager": "^11.2.0",
+    "wine": "^0.9.8"
+  }
+}
