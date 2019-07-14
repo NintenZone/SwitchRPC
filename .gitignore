@@ -2,6 +2,4 @@
 node_modules/
 dist/
 assets/
-package.json
 ignore_this/
-
