@@ -6,13 +6,104 @@
     <title>Nintendo Switch RPC - Could Not Connect</title>
     <link type="text/css" rel="stylesheet" href="style.css" media="screen">
     <style>
+        /*Header*/
+		.header-container {
+            background-color: #23272A;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            width: 100%;
+            height: 20px;
+            -webkit-app-region: drag;
+        }
+        .right-window {
+            -webkit-app-region: no-drag;
+            display: flex;
+            flex-direction: row;
+        }
+
+        .left-icon img {
+            height: 20px;
+            -webkit-app-region: no-drag;
+        }
+
+        #min, #max, #x {
+            background-color: #23272A;
+            transition: background-color 0.2s;
+            height: 20px;
+            width: 20px;
+        }
+
+        #min img, #max img, #x img {
+            height: 20px;
+        }
+        #min:hover, #max:hover {
+           	background-color: #3F3F3F;
+            cursor: pointer;
+        }
+
+        #x:hover {
+            background-color: red;
+            cursor: pointer;
+        }
+
+        /*Body*/
         h2 {
             text-align: center;
             font-size: 15pt;
         }
+        body {
+            font-family: Segoe, "Segoe UI", "DejaVu Sans", "Trebuchet MS", Verdana, "sans-serif";
+			justify-content: center;
+			display: flex;
+			flex-direction: column;
+			margin: 0;
+			padding: 0;
+        }
     </style>
 </head>
 <body>
+    <div class="header">
+		<div class="header-container">
+            <div class="left-icon"><img src="assets/icons/1024x1024.png"></div>
+            <div class="right-window">
+                <div class="window-item" id="min">
+                    <img src="assets/min.png">
+                </div>
+                <div class="window-item" id="max">
+                    <img src="assets/max.png">
+                </div>
+                <div class="window-item" id="x">
+                    <img src="assets/x.png">
+                </div>
+            </div>
+        </div>
+	</div>
+
     <h2>Could not connect to the server. Please make sure this application is not blocked in your firewall and that you are connected to the internet.</h2>
+    <script>
+        const electron = require('electron');
+	    const {ipcRenderer} = electron;
+
+        const x = document.getElementById("x");
+        const max = document.getElementById("max");
+        const min = document.getElementById("min");
+
+        x.addEventListener('click', sendX);
+        max.addEventListener('click', sendMax);
+        min.addEventListener('click', sendMin);
+
+        function sendX(e) {
+            ipcRenderer.send('x');
+        }
+
+        function sendMax(e) {
+            ipcRenderer.send('max');
+        }
+
+        function sendMin(e) {
+            ipcRenderer.send('min');
+        }
+    </script>
 </body>
 </html>
