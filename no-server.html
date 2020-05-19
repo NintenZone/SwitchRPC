@@ -82,28 +82,21 @@
 
     <h2>Could not connect to the server. Please make sure this application is not blocked in your firewall and that you are connected to the internet.</h2>
     <script>
-        const electron = require('electron');
-	    const {ipcRenderer} = electron;
+        const { ipcRenderer }  = require('electron');
 
-        const x = document.getElementById("x");
-        const max = document.getElementById("max");
-        const min = document.getElementById("min");
+        const x = document.getElementById('x');
+        const max = document.getElementById('max');
+        const min = document.getElementById('min');
 
-        x.addEventListener('click', sendX);
-        max.addEventListener('click', sendMax);
-        min.addEventListener('click', sendMin);
-
-        function sendX(e) {
+        x.addEventListener('click', function (e) {
             ipcRenderer.send('x');
-        }
-
-        function sendMax(e) {
+        });
+        max.addEventListener('click', function (e) {
             ipcRenderer.send('max');
-        }
-
-        function sendMin(e) {
+        });
+        min.addEventListener('click', function (e) {
             ipcRenderer.send('min');
-        }
+        });
     </script>
 </body>
 </html>

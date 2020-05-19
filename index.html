@@ -160,28 +160,21 @@
 </div>
 
 <script>
-    const electron = require('electron');
-	const {ipcRenderer, ipcMain} = electron;
+    const { ipcRenderer, ipcMain } = require('electron');
 
-    const x = document.getElementById("x");
-    const max = document.getElementById("max");
-    const min = document.getElementById("min");
+    const x = document.getElementById('x');
+    const max = document.getElementById('max');
+    const min = document.getElementById('min');
 
-    x.addEventListener('click', sendX);
-    max.addEventListener('click', sendMax);
-    min.addEventListener('click', sendMin);
-
-    function sendX(e) {
+    x.addEventListener('click', function (e) {
         ipcRenderer.send('x');
-    }
-
-    function sendMax(e) {
+    });
+    max.addEventListener('click', function (e) {
         ipcRenderer.send('max');
-    }
-
-    function sendMin(e) {
+    });
+    min.addEventListener('click', function (e) {
         ipcRenderer.send('min');
-    }
+    });
 	
     const form = document.querySelector('form');
     form.addEventListener('submit', submitForm);
@@ -194,13 +187,13 @@
         ipcRenderer.send('desc:value', desc);
 	}
 	
-	document.addEventListener("DOMContentLoaded", function() {
+	document.addEventListener('DOMContentLoaded', function () {
 		ipcRenderer.send('getGameData');
 
-		ipcRenderer.on('sendingGameData', function(e, data) {
-			data.forEach(function(game) {
-				document.getElementById("title-container").innerHTML += `<h4>${game}</h4>`;
-			})
+		ipcRenderer.on('sendingGameData', function (e, data) {
+			data.forEach(function (game) {
+				document.getElementById('title-container').innerHTML += `<h4>${game}</h4>`;
+			});
 		})
 	})
 
