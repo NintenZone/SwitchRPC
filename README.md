@@ -4,7 +4,7 @@ SwitchRPC is a Rich Presence application for Discord that allows you to set your
 If you have any issues or find any bugs you can get assistance on the [support server.](https://discord.gg/NqG6pN9)
 
 ## Installation
-If you're on windows, head over to the [releases](https://github.com/NintenZone/SwitchRPC.git) tab and grab the latest release.  
+If you're on Windows, head over to the [releases](https://github.com/NintenZone/SwitchRPC.git) tab and grab the latest release.  
 Mac and Linux installers coming soon™.
 
 ### Manual Installation (Useful for Mac and Linux Installs)

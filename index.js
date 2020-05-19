@@ -4,10 +4,8 @@ let version = 4;
 
 //dependencies
 const rpc = require('discord-rich-presence')('387406899739623426');
-const request = require('request');
+const axios = require('axios');
 const { app, BrowserWindow, ipcMain } = require('electron');
-const url = require('url');
-const path = require('path');
 
 let mainWindow;
 let data;
@@ -24,16 +22,16 @@ function createWindow() {
 
     mainWindow.setMenu(null);
 
-    request('http://nintenbot.js.org/rpc.json', function(err, res, body) {
-        if (err || !body) {
+    axios.get('https://nintenbot.js.org/rpc.json').then((res, err) => {
+        if (err || !res.data) {
             mainWindow.loadFile('no-server.html');
         }
         try {
-            data = JSON.parse(body);
-            mainWindow.loadFile('index.html')
+            data = res.data;
+            mainWindow.loadFile('index.html');
         }
         catch(e) {
-            mainWindow.loadFile('no-server.html')
+            mainWindow.loadFile('no-server.html');
         }
     });
 }
@@ -41,10 +39,10 @@ function createWindow() {
 app.whenReady().then(createWindow);
 
 
-ipcMain.on('getGameData', function(event) {
+ipcMain.on('getGameData', function (event) {
     let gameArray = [];
 
-    data.gameLibrary.forEach(function(game) {
+    data.gameLibrary.forEach(function (game) {
         gameArray.push(game.name);
     });
 
@@ -63,7 +61,7 @@ ipcMain.on('max', function () {
     else return mainWindow.maximize();
 });
 
-ipcMain.on('min', function() {
+ipcMain.on('min', function () {
     if (!mainWindow) return;
     mainWindow.minimize();
 });
@@ -80,23 +78,23 @@ ipcMain.on('desc:value', function (e, value) {
    findGame();
 });
 
-let status = "online";
-ipcMain.on("online", function() {
-    status = "online";
+let status = 'online';
+ipcMain.on('online', function () {
+    status = 'online';
     findGame();
 });
-ipcMain.on("away", function() {
-    status = "away";
+ipcMain.on('away', function () {
+    status = 'away';
     findGame();
 });
 
 //RPC
 function findGame() {
     let gotGame = name;
-    let pic = "switch";
+    let pic = 'switch';
     if (!name || !desc) return;
-    data.gameLibrary.forEach(function(game) {
-        game.aliases.forEach(function(alias) {
+    data.gameLibrary.forEach(function (game) {
+        game.aliases.forEach(function (alias) {
             if (alias === name.toLowerCase()) {
                 gotGame = game.name;
                 pic = game.pic;
@@ -115,5 +113,5 @@ function setPresence(game, desc, pic, status) {
         largeImageText: game,
         smallImageKey: status,
         smallImageText: status.charAt(0).toUpperCase() + status.slice(1)
-    })
+    });
 }
