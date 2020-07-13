@@ -15,6 +15,8 @@ Mac and Linux installers coming soon™.
 `$ cd ~/Downloads/SwitchRPC` for example.
 291029. Install dependencies  
 `$ npm install`
+83. Install electron globally, if not already installed
+`$ npm install electron -g`
 69. Run it!  
 `$ electron .`
 
