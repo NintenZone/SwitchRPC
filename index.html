@@ -194,13 +194,23 @@
         ipcRenderer.send('desc:value', desc);
 	}
 	
+	var noSpecialCharacters = function (str) {
+        return str.replace(/[^a-zA-Z0-9 ]/g, '');
+    }
+	
 	document.addEventListener("DOMContentLoaded", function() {
 		ipcRenderer.send('getGameData');
 
 		ipcRenderer.on('sendingGameData', function(e, data) {
-			data.forEach(function(game) {
-				document.getElementById("title-container").innerHTML += `<h4>${game}</h4>`;
-			})
+            data.forEach(function(game) {
+                let clean_game = noSpecialCharacters(game);
+                document.getElementById("title-container").innerHTML += `<h4 id='${clean_game}'>${game}</h4>`;
+            })
+            
+            data.forEach(function(game) {
+                let clean_game = noSpecialCharacters(game);
+                document.getElementById(clean_game).addEventListener('click', event => {document.querySelector('#game').value = document.getElementById(clean_game).textContent;});
+            })
 		})
 	})
 
